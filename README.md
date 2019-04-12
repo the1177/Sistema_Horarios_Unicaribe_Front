@@ -15,16 +15,16 @@ _Agregar una explicación técnica y detallada del funcionamiento de la aplicaci
 
 ## Integrantes del equipo
 El equipo encargado de esta tarea está conformado por;
-    -• Jacob Elías (@the1177)
-    -• Martín Ayala (@Mart-97)
-    -• César Cruz (@CesarCruzMunoz)
-    -• Sebastián Jiménez
-    -• Axel Villalobos
+- Jacob Elías (@the1177)
+- Martín Ayala (@Mart-97)
+- César Cruz (@CesarCruzMunoz)
+- Sebastián Jiménez
+- Axel Villalobos
 
 
 ## TO-DO List
--[x] Creación del repositorio en Github.
--[ ] Agregar una introducción del proyecto en el README.
--[ ] Describir las tecnologías que se usarán.
--[ ] Agregar una explicación técnica de còmo está conformado el sistema.
--[ ] Agregar y etiquetar a los miembros del equipo en el README.
+- [x] Creación del repositorio en Github.
+- [ ] Agregar una introducción del proyecto en el README.
+- [ ] Describir las tecnologías que se usarán.
+- [ ] Agregar una explicación técnica de còmo está conformado el sistema.
+- [ ] Agregar y etiquetar a los miembros del equipo en el README.
