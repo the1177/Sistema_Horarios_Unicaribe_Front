@@ -11,14 +11,14 @@ const Menu =  [
     group: 'apps',
     icon: 'chat_bubble',
     target: '_blank',
-    name: 'Chat', // - Manda a la otra pagina http://localhost:8080/#/chat/messaging
+    name: 'Chat', 
   },
   {
     title: 'Correo', // Modificar nombre Inbox
     group: 'apps',
     name: 'Mail',
     target: '_blank',
-    icon: 'email', // - Manda a la otra pagina http://localhost:8080/#/mail/all
+    icon: 'email', 
   },
   /*{
     title: 'Media',
