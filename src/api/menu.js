@@ -11,7 +11,7 @@ const Menu =  [
     group: 'apps',
     icon: 'chat_bubble',
     target: '_blank',
-    name: 'Chat', // - Manda a la otra pagina http://localhost:8080/#/chat/messaging
+    name: 'Chat', 
   },
   /*{
     title: 'Correo', // Modificar nombre Inbox
