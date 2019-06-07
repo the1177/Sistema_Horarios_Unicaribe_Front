@@ -13,13 +13,13 @@ const Menu =  [
     target: '_blank',
     name: 'Chat', // - Manda a la otra pagina http://localhost:8080/#/chat/messaging
   },
-  {
+  /*{
     title: 'Correo', // Modificar nombre Inbox
     group: 'apps',
     name: 'Mail',
     target: '_blank',
     icon: 'email', // - Manda a la otra pagina http://localhost:8080/#/mail/all
-  },
+  },*/
   /*{
     title: 'Media',
     group: 'apps',
@@ -38,8 +38,8 @@ const Menu =  [
       { name: 'list', title: 'List', component: 'components/widget-list' },
       // { name: 'post', title: 'Post', component: 'components/widget-post' },
     ]
-  },  
-  { header: 'Elementos' },
+  },
+  /*{ header: 'Elementos' },
   {
     title: 'General',
     group: 'components',
@@ -122,7 +122,7 @@ const Menu =  [
       { name: '403', title: '403', component: 'AccessDenied' },
       { name: '500', title: '500', component: 'ServerError' },
     ]
-  },
+  },*/
 ];
 // reorder menu
 Menu.forEach((item) => {
