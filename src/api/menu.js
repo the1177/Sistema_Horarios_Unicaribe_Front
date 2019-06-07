@@ -1,45 +1,45 @@
 const Menu =  [
   { header: 'Apps' },
   {
-    title: 'Dashboard',
+    title: 'Reportes', // Modificar nombre Dashboard
     group: 'apps',
     icon: 'dashboard',
-    name: 'Dashboard',
+    name: 'Dashboard', //- Manda a la otra pagina http://localhost:8080/#/dashboard
   },
   {
-    title: 'Chat',
+    title: 'Solicitudes', // Modificar nombre Chat
     group: 'apps',
     icon: 'chat_bubble',
     target: '_blank',
-    name: 'Chat',
+    name: 'Chat', // - Manda a la otra pagina http://localhost:8080/#/chat/messaging
   },
   {
-    title: 'Inbox',
+    title: 'Correo', // Modificar nombre Inbox
     group: 'apps',
     name: 'Mail',
     target: '_blank',
-    icon: 'email',
+    icon: 'email', // - Manda a la otra pagina http://localhost:8080/#/mail/all
   },
-  {
+  /*{
     title: 'Media',
     group: 'apps',
     name: 'Media',
     icon: 'perm_media',
-  },
+  },*/
   {
-    title: 'Widgets',
+    title: 'Administrador', // Modificar nombre Widgets
     group: 'widgets',
     component: 'widgets',
     icon: 'widgets',
     items: [
-      { name: 'social', title: 'Social', component: 'components/social' },
+      { name: 'social', title: 'Social', component: 'components/social' }, // 
       { name: 'statistic', title: 'Statistic', badge: 'new', component: 'components/statistic' },
       { name: 'chart', title: 'Chart', component: 'components/chart' },
       { name: 'list', title: 'List', component: 'components/widget-list' },
       // { name: 'post', title: 'Post', component: 'components/widget-post' },
     ]
   },  
-  { header: 'UI Elements' },
+  { header: 'Elementos' },
   {
     title: 'General',
     group: 'components',
