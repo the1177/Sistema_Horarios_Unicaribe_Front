@@ -7,7 +7,7 @@
             <v-card class="elevation-1 pa-3">
               <v-card-text>
                 <div class="layout column align-center">
-                  <img src="/static/logo-unicaribe.png" alt="Vue Material Admin" width="220" height="220">
+                  <img src="/static/userProfile.png" alt="Vue Material Admin" width="220" height="220">
                   <h1 class="flex my-4 primary--text">Sistema de Reservas de Laboratorios</h1>
                 </div>                
                 <v-form>
