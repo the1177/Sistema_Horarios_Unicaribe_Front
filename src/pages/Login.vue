@@ -53,10 +53,14 @@ export default {
   }),
   methods: {
     login () {
-      this.loading = true;
-      setTimeout(() => {
+      const sha1 = require('sha1');
+      if (this.model.username !== '' && this.model.password !== '') {
         this.$router.push('/dashboard');
-      }, 1000);
+        const passwordhash = sha1(this.model.password);
+        alert(passwordhash); 
+      } else {
+        alert('Necesita llenar los campos');
+      }
     },
     changeView (newStatus) {
       this.wantsRegistration = newStatus;
