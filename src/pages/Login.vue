@@ -1,6 +1,11 @@
 <template>
   <v-app id="login" class="primary">
     <v-content>
+      <transition name="fade" mode="out-in">
+        <v-alert type="warning" dismissible v-if="showInfoAlert" v-on:click="hideAlerts" :value="showInfoAlert">
+          Necesita llenar los campos del formulario.
+        </v-alert>
+      </transition>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4 lg4>
@@ -11,8 +16,16 @@
                   <h1 class="flex my-4 primary--text">Sistema de Reservas de Laboratorios</h1>
                 </div>                
                 <v-form>
-                  <v-text-field append-icon="person" name="login" label="Login" type="text" v-model="model.username"></v-text-field>
-                  <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password" v-model="model.password"></v-text-field>
+                  <v-text-field append-icon="person" name="login" label="Login" type="text" 
+                    v-model="model.username" 
+                    required
+                    :rules="[() => !!username || 'Este campo es requerido']">
+                  </v-text-field>
+                  <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password"
+                    v-model="model.password"
+                    required
+                    :rules= "[() => !!password || 'Este campo es requerido']">
+                  </v-text-field>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -31,25 +44,25 @@
     </v-content>
   </v-app>
 </template>
-
 <script>
+
 import ContactForm from '../components/widgets/form/ContactForm';
+import VWidget from '../components/VWidget';
 
 export default {
   components: {
-    ContactForm
+    ContactForm,
+    VWidget
   },
   data: () => ({
     loading: false,
     wantsRegistration: false,
+    showInfoAlert: false,
+    isActive: true,
     model: {
-      username: '150300118@ucaribe.edu.mx',
-      password: 'password'
+      username: '',
+      password: ''
     },
-    formElements: [
-      { typeInput: 'text', label: 'Nombre completo' },
-      { typeInput: 'text', label: 'Correo electrónico' }
-    ]
   }),
   methods: {
     login () {
@@ -59,11 +72,15 @@ export default {
         const passwordhash = sha1(this.model.password);
         alert(passwordhash); 
       } else {
-        alert('Necesita llenar los campos');
+        this.showInfoAlert = true;
+        // alert('Necesita llenar los campos');
       }
     },
     changeView (newStatus) {
       this.wantsRegistration = newStatus;
+    },
+    hideAlerts () {
+      this.showInfoAlert = false;
     }
   },
 
@@ -78,5 +95,15 @@ export default {
     left: 0;
     content: "";
     z-index: 0;
+  }
+  .fade-enter{
+        opacity: 0;
+  }
+  .fade-enter-active{
+        transition: opacity 1s;
+  }
+  .fade-leave-active{
+    transition: opacity 1s;
+    opacity: 0;
   }
 </style>
