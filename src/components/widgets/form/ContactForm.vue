@@ -97,11 +97,7 @@ export default {
     zip: null,
     country: null,
     formHasErrors: false,
-<<<<<<< HEAD
     showModal: false,
-=======
-    regex: /[\w]*@ucaribe\.edu\.mx(\W|$)/ig,
->>>>>>> 7bfd25d07ce24df2fd9ecb9f6a421d354fc6de8c
   }),
   computed: {
     form () {
