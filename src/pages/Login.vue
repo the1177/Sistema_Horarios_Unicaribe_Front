@@ -102,12 +102,9 @@ export default {
         }
       } else {
         this.showInfoAlert = true;
-<<<<<<< HEAD
         console.log(this.$eventHub.$emit);
         
         this.$eventHub.$emit('vtNotify', this.statusObject);
-=======
->>>>>>> 7bfd25d07ce24df2fd9ecb9f6a421d354fc6de8c
       }
     },
     changeView (newStatus) {
