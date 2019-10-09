@@ -9,11 +9,17 @@ import './theme/default.styl';
 import VeeValidate from 'vee-validate';
 import colors from 'vuetify/es5/util/colors';
 import Truncate from 'lodash.truncate';
+import VueToastify from 'vue-toastify';
+
 Vue.config.productionTip = false;
 // Helpers
 // Global filters
 Vue.filter('truncate', Truncate);
+Vue.prototype.$eventHub = new Vue(); // Global event bus
+
+
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' });
+
 Vue.use(Vuetify, {
   // theme: {
   //   primary: colors.indigo.base, // #E53935
@@ -36,6 +42,7 @@ Vue.use(Vuetify, {
 });
 // Bootstrap application components
 
+Vue.component('vue-toastify', VueToastify);
 
 
 /* eslint-disable no-new */

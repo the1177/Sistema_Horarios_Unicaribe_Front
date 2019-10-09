@@ -6,6 +6,7 @@
           Necesita llenar los campos del formulario.
         </v-alert>
       </transition>
+      <vue-toastify v-bind="title"></vue-toastify>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4 lg4>
@@ -16,6 +17,7 @@
                   <h1 class="flex my-4 primary--text">Sistema de Reservas de Laboratorios</h1>
                 </div>                
                 <v-form>
+
                   <v-text-field append-icon="person" name="login" label="Login" type="text" 
                     v-model="model.username" 
                     required
@@ -48,6 +50,10 @@
 
 import ContactForm from '../components/widgets/form/ContactForm';
 import VWidget from '../components/VWidget';
+import VueSession from 'vue-session';
+import VueAxios from 'vue-axios';
+import axios from 'axios';
+// import VueToastify from 'vue-toastify';
 
 export default {
   components: {
@@ -59,11 +65,23 @@ export default {
     wantsRegistration: false,
     showInfoAlert: false,
     isActive: true,
+    username: '',
+    password: '',
+    statusObject: {
+      title: 'toastified!',
+      body: 'This is the body.',
+      defaultTitle: true
+    },
     model: {
       username: '',
       password: ''
     },
+    errors: []
   }),
+  mounted () {
+    console.log('Component mounted.');
+    this.fetchLog();
+  },
   methods: {
     login () {
       const sha1 = require('sha1');
@@ -73,7 +91,9 @@ export default {
         alert(passwordhash); 
       } else {
         this.showInfoAlert = true;
-        // alert('Necesita llenar los campos');
+        console.log(this.$eventHub.$emit);
+        
+        this.$eventHub.$emit('vtNotify', this.statusObject);
       }
     },
     changeView (newStatus) {
@@ -81,8 +101,27 @@ export default {
     },
     hideAlerts () {
       this.showInfoAlert = false;
-    }
+    },
+    fetchLog () {
+      axios({
+        method: 'POST',
+        url: 'http://ec2-34-253-188-55.eu-west-1.compute.amazonaws.com/ApiPruebas/api/login/authenticate',
+        headers: { 
+          'Access-Control-Allow-Origin': 'http://ec2-34-253-188-55.eu-west-1.compute.amazonaws.com',
+          'Content-Type': 'application/json'
+        },
+        data: { email: this.model.username, Password: this.model.password }
+      }).then(response => {
+        if (response.status && response.userValid) {
+          this.$router.push('/dashboard');
+        }
+      }).catch(e => {
+        this.errors.push(e);
+        console.log(this.errors);
+      });
+    },
   },
+  
 
 };
 </script>
