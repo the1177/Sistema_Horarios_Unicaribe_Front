@@ -25,6 +25,7 @@
         placeholder="Ingresa tu email"
         :rules="[
           () => !!email || 'Este campo es requerido',
+          () => !!email && !!(regex.test(email))|| 'Use your academic email (..@ucaribe.edu.mx)',
           () => !!email && email.length <= 25 || 'Address must be less than 25 characters',
         ]"
         v-model="email"
@@ -96,7 +97,11 @@ export default {
     zip: null,
     country: null,
     formHasErrors: false,
+<<<<<<< HEAD
     showModal: false,
+=======
+    regex: /[\w]*@ucaribe\.edu\.mx(\W|$)/ig,
+>>>>>>> 7bfd25d07ce24df2fd9ecb9f6a421d354fc6de8c
   }),
   computed: {
     form () {
@@ -158,7 +163,10 @@ export default {
       });
     },
     submit () {
+      let number = Math.floor(Math.random() * 10000); // Generar numero entero al azar
+
       this.formHasErrors = false;
+
       Object.keys(this.form).forEach(f => {
         if (!this.form[f]) this.formHasErrors = true;
         this.$refs[f].validate(true);

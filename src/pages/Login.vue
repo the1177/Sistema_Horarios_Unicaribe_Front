@@ -21,12 +21,17 @@
                   <v-text-field append-icon="person" name="login" label="Login" type="text" 
                     v-model="model.username" 
                     required
-                    :rules="[() => !!username || 'Este campo es requerido']">
+                    :rules="[
+                    () => !!model.username || 'Este campo es requerido',
+                    () => !!model.username && !!(regex.test(model.username)) || 'Use your academic email (..@ucaribe.edu.mx)',
+                    ]">
                   </v-text-field>
                   <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password"
                     v-model="model.password"
                     required
-                    :rules= "[() => !!password || 'Este campo es requerido']">
+                    :rules="[
+                    () => !!model.password || 'Este campo es requerido'
+                    ]">
                   </v-text-field>
                 </v-form>
               </v-card-text>
@@ -72,6 +77,7 @@ export default {
       body: 'This is the body.',
       defaultTitle: true
     },
+    regex: /[\w]*@ucaribe\.edu\.mx(\W|$)/ig,
     model: {
       username: '',
       password: ''
@@ -85,15 +91,23 @@ export default {
   methods: {
     login () {
       const sha1 = require('sha1');
+      const reg = /[\w]*@ucaribe\.edu\.mx(\W|$)/ig;
+
       if (this.model.username !== '' && this.model.password !== '') {
-        this.$router.push('/dashboard');
         const passwordhash = sha1(this.model.password);
-        alert(passwordhash); 
+        if (reg.test(this.model.username)) {
+          this.$router.push('/dashboard');
+        } else {
+          this.showInfoAlert = true;
+        }
       } else {
         this.showInfoAlert = true;
+<<<<<<< HEAD
         console.log(this.$eventHub.$emit);
         
         this.$eventHub.$emit('vtNotify', this.statusObject);
+=======
+>>>>>>> 7bfd25d07ce24df2fd9ecb9f6a421d354fc6de8c
       }
     },
     changeView (newStatus) {
