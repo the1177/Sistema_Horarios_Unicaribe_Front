@@ -25,7 +25,7 @@
         placeholder="Ingresa tu email"
         :rules="[
           () => !!email || 'Este campo es requerido',
-          () => !!email && !!(regex.test(email))|| 'Use your academic email (..@ucaribe.edu.mx)',
+          () => !!email && !!(this.verifyEmail())|| 'Use your academic email (..@ucaribe.edu.mx)',
           () => !!email && email.length <= 25 || 'Address must be less than 25 characters',
         ]"
         v-model="email"
@@ -98,6 +98,8 @@ export default {
     country: null,
     formHasErrors: false,
     showModal: false,
+    regex: /[\w]*@ucaribe\.edu\.mx(\W|$)/ig,
+
   }),
   computed: {
     form () {
@@ -109,7 +111,8 @@ export default {
         zip: this.zip,
         country: this.country
       };
-    }
+    },
+   
   },
 
   watch: {
@@ -119,6 +122,10 @@ export default {
   },
 
   methods: {
+    verifyEmail: function () {
+     
+      return this.regex.test(this.email);
+    },
     bringLoginBack () {
       this.$emit('getLogin', false);
     },
@@ -137,6 +144,7 @@ export default {
       });
     },
     userRegistration () {
+      console.log('ajax');
       axios({
         method: 'POST',
         url: 'http://ec2-34-253-188-55.eu-west-1.compute.amazonaws.com/ApiPruebas/api/login/register',
@@ -153,6 +161,7 @@ export default {
         }
       }).then(response => {
         console.log('hola');
+        console.log(response);
       }).catch(e => {
         this.errors.push(e);
         console.log(this.errors);
@@ -163,9 +172,32 @@ export default {
 
       this.formHasErrors = false;
 
-      Object.keys(this.form).forEach(f => {
+      /*Object.keys(this.form).forEach(f => {
         if (!this.form[f]) this.formHasErrors = true;
         this.$refs[f].validate(true);
+      });*/
+      //this.userRegistration();
+      console.log('ojo');
+      axios({
+        method: 'POST',
+        url: 'http://zeus-unicaribe.eastus.cloudapp.azure.com/api/login/register',
+        headers: { 
+          'Access-Control-Allow-Origin': 'http://zeus-unicaribe.eastus.cloudapp.azure.com',
+          'Content-Type': 'application/json',
+          // 'Authorization': 'Bearer tokenChido'
+        },
+        data: {
+          email: this.email,
+          password: this.password,
+          name: this.name,
+          lastname: this.lastname,
+        }
+      }).then(response => {
+        console.log('hola');
+        console.log(response);
+      }).catch(e => {
+        this.errors.push(e);
+        console.log(this.errors);
       });
     }
   }

@@ -6,7 +6,6 @@
           Necesita llenar los campos del formulario.
         </v-alert>
       </transition>
-      <vue-toastify v-bind="title"></vue-toastify>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md4 lg4>
@@ -23,7 +22,7 @@
                     required
                     :rules="[
                     () => !!model.username || 'Este campo es requerido',
-                    () => !!model.username && !!(regex.test(model.username)) || 'Use your academic email (..@ucaribe.edu.mx)',
+                    () => !!model.username && !!(regex.test(model.username)) || 'Usa el correo institucional (..@ucaribe.edu.mx)',
                     ]">
                   </v-text-field>
                   <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password"
@@ -72,40 +71,46 @@ export default {
     isActive: true,
     username: '',
     password: '',
-    statusObject: {
-      title: 'toastified!',
-      body: 'This is the body.',
-      defaultTitle: true
-    },
     regex: /[\w]*@ucaribe\.edu\.mx(\W|$)/ig,
     model: {
       username: '',
       password: ''
     },
-    errors: []
+    errorsArray: []
   }),
   mounted () {
     console.log('Component mounted.');
-    this.fetchLog();
+    //this.fetchLog();
   },
   methods: {
     login () {
       const sha1 = require('sha1');
       const reg = /[\w]*@ucaribe\.edu\.mx(\W|$)/ig;
-
-      if (this.model.username !== '' && this.model.password !== '') {
+      axios({
+        method: 'POST',
+        url: 'http://zeus-unicaribe.eastus.cloudapp.azure.com/api/login/authenticate',
+        headers: { 
+          'Access-Control-Allow-Origin': 'http://zeus-unicaribe.eastus.cloudapp.azure.com',
+          'Content-Type': 'application/json'
+        },
+        data: { email: this.model.username, Password: this.model.password }
+      }).then(response => {
+        console.log(response.request);
+        if (response.status && response.userValid) {
+          this.$router.push('/dashboard');
+        }
+      }).catch(e => {
+        this.errorsArray.push(e);
+        console.log(this.errorsArray);
+      });
+      /*if (this.model.username !== '' && this.model.password !== '') {
         const passwordhash = sha1(this.model.password);
         if (reg.test(this.model.username)) {
           this.$router.push('/dashboard');
         } else {
           this.showInfoAlert = true;
         }
-      } else {
-        this.showInfoAlert = true;
-        console.log(this.$eventHub.$emit);
-        
-        this.$eventHub.$emit('vtNotify', this.statusObject);
-      }
+      }*/ 
     },
     changeView (newStatus) {
       this.wantsRegistration = newStatus;
@@ -127,8 +132,8 @@ export default {
           this.$router.push('/dashboard');
         }
       }).catch(e => {
-        this.errors.push(e);
-        console.log(this.errors);
+        this.errorsArray.push(e);
+        console.log(this.errorsArray);
       });
     },
   },
